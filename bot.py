@@ -75,7 +75,7 @@ async def main():
     site = web.TCPSite(runner, "0.0.0.0", 8080)
     await app.initialize()
     await app.start()
-    await app.bot.set_webhook("https://feisty-gentleness.up.railway.app/")  # Replace with your real Railway URL
+    await app.bot.set_webhook("https://nqaabot.up.railway.app/")  # Replace with your real Railway URL
     await site.start()
     print("🚀 Bot is live on Railway and webhook is set")
     await asyncio.Event().wait()
