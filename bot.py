@@ -60,7 +60,8 @@ app.add_handler(CommandHandler("start", start))
 app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
 
 # Webhook handler
-async def handle(request):
+async def webhook_handler(request):
+    print("✅ Received webhook request")
     data = await request.json()
     update = Update.de_json(data, app.bot)
     await app.update_queue.put(update)
@@ -69,7 +70,7 @@ async def handle(request):
 # Run aiohttp web server
 async def main():
     aio_app = web.Application()
-    aio_app.router.add_post("/", handle)
+    aio_app.router.add_post("/", webhook_handler)
     runner = web.AppRunner(aio_app)
     await runner.setup()
     site = web.TCPSite(runner, "0.0.0.0", 8080)
