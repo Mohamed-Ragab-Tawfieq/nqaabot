@@ -58,7 +58,7 @@ import asyncio
 async def main():
     await app.initialize()
     await app.start()
-    await app.bot.set_webhook("https://feisty-gentleness.up.railway.app")  # replace with your actual URL
+    await app.bot.set_webhook("https://nqaabot.up.railway.app")
     await asyncio.Event().wait()
 
 if __name__ == '__main__':
