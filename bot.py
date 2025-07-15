@@ -63,9 +63,9 @@ app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
 async def handle(request):
     data = await request.json()
     update = Update.de_json(data, app.bot)
-    await app.process_update(update)
+    await app.update_queue.put(update)
     return web.Response(text="OK")
-
+    
 # Run aiohttp web server
 async def main():
     aio_app = web.Application()
@@ -75,7 +75,7 @@ async def main():
     site = web.TCPSite(runner, "0.0.0.0", 8080)
     await app.initialize()
     await app.start()
-    await app.bot.set_webhook("https://feisty-gentleness.up.railway.app")  # Replace with your real Railway URL
+    await app.bot.set_webhook("https://feisty-gentleness.up.railway.app/")  # Replace with your real Railway URL
     await site.start()
     print("🚀 Bot is live on Railway and webhook is set")
     await asyncio.Event().wait()
